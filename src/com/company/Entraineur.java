@@ -1,6 +1,9 @@
 package com.company;
 
 class Entraineur extends Personne {
+
+    private static int NB_ENTRAINEUR = 0;
+
     private Club club_entraine;
 
     public void demissionner() {
@@ -9,6 +12,11 @@ class Entraineur extends Personne {
 
     public Entraineur(String prenom, String nom, int age) {
         super(prenom, nom, age);
+        NB_ENTRAINEUR += 1;
+    }
+
+    public Entraineur() {
+        super("Prenom_" + NB_ENTRAINEUR, "Nom_" + NB_ENTRAINEUR, 25);
     }
 
     /**
