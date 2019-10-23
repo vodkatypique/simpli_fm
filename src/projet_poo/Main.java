@@ -1,4 +1,4 @@
-package com.company;
+package projet_poo;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -15,11 +15,11 @@ public class Main {
 
         Club club1 = new Club("1999", "club1", entr1, stade1);
 
-        for (int i = 0; i < 19; i++) {
+        for (int i = 0; i < 5; i++) {
             participants.add(new Club());
         }
 
-        participants.add(club1);
+        //participants.add(club1);
 ///////////////////////////////////////////////////////////////////////
         ArrayList<Joueur> base_de_donnees_joueur = genererBddJoueur(10000);
 
@@ -33,7 +33,7 @@ public class Main {
 
 //////////////////////////////////////////////////////////////////////////
 
-        Championnat champ = new Championnat(3, 0, 1, null, participants);
+        Championnat champ = new Championnat(3, 0, 1, participants.get(0), participants);
 
         while (!champ.getProgramme_match().isEmpty()) {
             champ.jouer_match();

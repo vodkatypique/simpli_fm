@@ -1,4 +1,4 @@
-package com.company;
+package projet_poo;
 
 abstract class Personne {
     private String prenom;

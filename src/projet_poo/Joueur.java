@@ -1,4 +1,4 @@
-package com.company;
+package projet_poo;
 
 import java.util.Random;
 
@@ -11,6 +11,8 @@ class Joueur extends Personne {
 
     private Club club;
 
+    private float etat_physique;
+
 
     public void jouer() {
     }
@@ -21,6 +23,7 @@ class Joueur extends Personne {
         this.stat_def = stat_def;
         this.stat_gk = stat_gk;
         this.club = club;
+        this.etat_physique = 1;
     }
 
     public Joueur(Random rand) {
@@ -31,21 +34,21 @@ class Joueur extends Personne {
      * @return the stat_att
      */
     public float getStat_att() {
-        return stat_att;
+        return stat_att * this.etat_physique;
     }
 
     /**
      * @return the stat_def
      */
     public float getStat_def() {
-        return stat_def;
+        return stat_def * this.etat_physique;
     }
 
     /**
      * @return the stat_gk
      */
     public float getStat_gk() {
-        return stat_gk;
+        return stat_gk * this.etat_physique;
     }
 
     public void integre_effectif(Club club) {
@@ -59,7 +62,7 @@ class Joueur extends Personne {
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        return this.toStringGardien() + ", " + this.toStringDef() + ", " + this.toStringAtt();
+        return this.toStringGardien() + ", " + this.toStringDef() + ", " + this.toStringAtt() + ", " + this.toStringEtatPhysique();
     }
 
     public String toStringGardien() {
@@ -74,4 +77,35 @@ class Joueur extends Personne {
         return "ATT : " + this.stat_att;
     }
 
+    public String toStringEtatPhysique() {
+        return "PHYSIQUE : " + this.etat_physique;
+    }
+
+    public float getEtat_physique() {
+        return etat_physique;
+    }
+
+    public void seFatigue() {
+        Random rnd = new Random();
+        float perte = (float) (0.1 + rnd.nextFloat() * (0.4 - 0.1)); //alea entre 0.1 et 0.4
+        if (this.etat_physique >= perte) {
+            this.etat_physique -= perte;
+        } else {
+            this.etat_physique = 0;
+        }
+    }
+
+    public void recupere() {
+        Random rnd = new Random();
+        float gain = (float) (0.15 + rnd.nextFloat() * (0.35 - 0.15)); //alea entre 0.15 et 0.35
+        if (this.etat_physique <= 1 - gain) {
+            this.etat_physique += gain;
+        } else {
+            this.etat_physique = 1;
+        }
+    }
+
+    public boolean estTitulaire() {
+        return this.club.getCompo().getTitulaire().contains(this);
+    }
 }

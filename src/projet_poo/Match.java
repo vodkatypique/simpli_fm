@@ -1,4 +1,4 @@
-package com.company;
+package projet_poo;
 
 import java.util.ArrayList;
 
@@ -13,6 +13,20 @@ public class Match {
     public Match(Club dom, Club ext) {
         this.domicile = dom;
         this.exterieur = ext;
+    }
+
+    public void majEtatPhysique() {
+        Club dom = this.domicile;
+        Club ext = this.exterieur;
+
+        for (Joueur j :
+                dom.getEffectif()) {
+            if (j.estTitulaire()) {
+                j.seFatigue();
+            } else {
+                j.recupere();
+            }
+        }
     }
 
     public Club partie() {
@@ -63,6 +77,10 @@ public class Match {
         res += bonus_stade;
         System.out.println("bonus domicile stade rempli : +" + bonus_stade);
         System.out.println("balance du match : " + res);
+
+        ///////////
+        this.majEtatPhysique();
+        /////////
         if (res > 0.25) {
             return dom;
         } else if (res < -0.25) {

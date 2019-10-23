@@ -1,10 +1,11 @@
-package com.company;
+package projet_poo;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
 class Championnat extends Structure {
+
     private ArrayList<Club> participants;
     private Club joueur;
     private int point_victoire;

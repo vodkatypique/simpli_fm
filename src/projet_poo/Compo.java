@@ -1,6 +1,4 @@
-package com.company;
-
-import com.sun.jdi.IntegerValue;
+package projet_poo;
 
 import java.util.ArrayList;
 
@@ -62,6 +60,20 @@ class Compo {
         return gk;
     }
 
+    public ArrayList<Joueur> getTitulaire() {
+        ArrayList<Joueur> retour = new ArrayList<Joueur>();
+        for (Joueur j :
+                this.getAtt()) {
+            retour.add(j);
+        }
+        for (Joueur j :
+                this.getDef()) {
+            retour.add(j);
+        }
+        retour.add((this.getGk()));
+        return retour;
+    }
+
     public void afficheCompo() {
 
         System.out.println(this.getGk().toStringGardien());
@@ -71,6 +83,12 @@ class Compo {
         for (Joueur att : this.getAtt()) {
             System.out.println(att.toStringAtt());
         }
+    }
+
+    public void reset() {
+        this.att = new ArrayList<Joueur>();
+        this.def = new ArrayList<Joueur>();
+        this.gk = null;
     }
 
 }

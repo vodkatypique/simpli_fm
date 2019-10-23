@@ -1,4 +1,4 @@
-package com.company;
+package projet_poo;
 
 import java.util.Random;
 

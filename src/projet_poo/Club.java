@@ -1,4 +1,4 @@
-package com.company;
+package projet_poo;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -75,12 +75,13 @@ class Club extends Structure {
 
     public void programmer_compo() {
 
+        this.compo.reset();
         ArrayList<Joueur> selectionnable = new ArrayList<Joueur>(this.effectif);
 
         while (this.compo.getGk() == null) {
             System.out.println("choisissez votre gardien : ");
             for (Joueur j : selectionnable) {
-                System.out.println(j.getStat_gk() + "index : " + selectionnable.indexOf(j));
+                System.out.println(j.getStat_gk() + ", " + j.toStringEtatPhysique() + " index : " + selectionnable.indexOf(j));
             }
             Scanner myObj = new Scanner(System.in);  // Create a Scanner object
             System.out.println("Index du joueur choisi pour jouer GK");
@@ -99,21 +100,21 @@ class Club extends Structure {
             this.compo.afficheCompo();
             System.out.println("encore " + (10 - this.compo.getNbTitulaire()) + "joueur a choisir");
             for (Joueur j : selectionnable) {
-                System.out.println("att: " + j.getStat_att() + " | def: " + j.getStat_def() + " |index : " + selectionnable.indexOf(j));
+                System.out.println("att: " + j.getStat_att() + " | def: " + j.getStat_def() + "|" + j.toStringEtatPhysique() + " |index : " + selectionnable.indexOf(j));
             }
             Scanner myObj = new Scanner(System.in);  // Create a Scanner object
             System.out.println("def ou att ?");
 
             String choix = myObj.next();  // Read user input
 
-            while (!choix.equals("att") && !choix.equals("def")) {
+            while (!choix.equalsIgnoreCase("att") && !choix.equalsIgnoreCase("def")) {
                 System.out.println("def ou att ?");
                 choix = myObj.next();
             }
-            if (choix.equals("att")) {
+            if (choix.equalsIgnoreCase("att")) {
                 System.out.println("choisissez votre att : ");
                 for (Joueur j : selectionnable) {
-                    System.out.println(j.getStat_att() + "index : " + selectionnable.indexOf(j));
+                    System.out.println(j.getStat_att() + ", " + j.toStringEtatPhysique() + "index : " + selectionnable.indexOf(j));
                 }
                 System.out.println("Index du joueur choisi pour jouer att");
 
@@ -128,7 +129,7 @@ class Club extends Structure {
             } else {
                 System.out.println("choisissez votre def : ");
                 for (Joueur j : selectionnable) {
-                    System.out.println(j.getStat_def() + "index : " + selectionnable.indexOf(j));
+                    System.out.println(j.getStat_def() + ", " + j.toStringEtatPhysique() + "index : " + selectionnable.indexOf(j));
                 }
                 System.out.println("Index du joueur choisi pour jouer def");
 
@@ -148,13 +149,13 @@ class Club extends Structure {
         for (int i = 0; i < taille; i++) {
             Random index = new Random();
             int rnd = index.nextInt(bdd.size());
-            this.ajoutJoueur(bdd.get(rnd));
+            bdd.get(rnd).integre_effectif(this);
             bdd.remove(rnd);
         }
     }
 
     public void generer_compo() {
-        this.compo = new Compo();
+        this.compo.reset();
         ArrayList<Joueur> selectionnable = new ArrayList<Joueur>(this.effectif);
 
         Random gen_rnd = new Random();
