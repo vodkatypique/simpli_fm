@@ -7,7 +7,9 @@ import java.util.Comparator;
 class Championnat extends Structure {
 
     private ArrayList<Club> participants;
+
     private Club joueur;
+
     private int point_victoire;
 
     private int point_nul;
@@ -56,7 +58,13 @@ class Championnat extends Structure {
         System.out.println(match);
         Club dom = match.getDomicile();
         Club ext = match.getExterieur();
+        Club utilisateur = null;
         if (dom.equals(this.joueur) || ext.equals(this.joueur)) {
+            if (dom.equals(this.joueur)) {
+                utilisateur = dom;
+            } else {
+                utilisateur = ext;
+            }
             if (dom.equals(this.joueur)) {
                 match.getDomicile().programmer_compo();
                 match.getExterieur().generer_compo();
@@ -68,7 +76,7 @@ class Championnat extends Structure {
             match.getDomicile().generer_compo();
             match.getExterieur().generer_compo();
         }
-        Club gagnant = match.partie();
+        Club gagnant = match.partie(utilisateur);
 
 
         if (gagnant == null) {

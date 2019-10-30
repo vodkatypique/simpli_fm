@@ -1,23 +1,19 @@
 package projet_poo;
 
 abstract class Personne {
+    private static int NB_PERSONNE = 0;
+
     private String prenom;
 
     private String nom;
 
     private int age;
 
-    private boolean est_heureux;
-
-    Personne(String prenom, String nom, int age, boolean heureux) {
-        this.prenom = prenom;
-        this.nom = nom;
-        this.age = age;
-        this.est_heureux = heureux;
-    }
 
     Personne(String prenom, String nom, int age) {
-        this(prenom, nom, age, true);
+        this.prenom = prenom + NB_PERSONNE;
+        this.nom = nom + NB_PERSONNE;
+        this.age = age;
+        NB_PERSONNE += 1;
     }
-
 }

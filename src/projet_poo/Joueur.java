@@ -87,7 +87,7 @@ class Joueur extends Personne {
 
     public void seFatigue() {
         Random rnd = new Random();
-        float perte = (float) (0.1 + rnd.nextFloat() * (0.4 - 0.1)); //alea entre 0.1 et 0.4
+        float perte = (float) (0.1 + rnd.nextFloat() * (0.15 - 0.1)); //alea entre 0.1 et 0.2
         if (this.etat_physique >= perte) {
             this.etat_physique -= perte;
         } else {
@@ -97,7 +97,7 @@ class Joueur extends Personne {
 
     public void recupere() {
         Random rnd = new Random();
-        float gain = (float) (0.15 + rnd.nextFloat() * (0.35 - 0.15)); //alea entre 0.15 et 0.35
+        float gain = (float) (0.08 + rnd.nextFloat() * (0.25 - 0.05)); //alea entre 0.05 et 0.25
         if (this.etat_physique <= 1 - gain) {
             this.etat_physique += gain;
         } else {

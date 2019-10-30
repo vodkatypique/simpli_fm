@@ -15,25 +15,25 @@ public class Main {
 
         Club club1 = new Club("1999", "club1", entr1, stade1);
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 4; i++) {
             participants.add(new Club());
         }
 
         //participants.add(club1);
-///////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
         ArrayList<Joueur> base_de_donnees_joueur = genererBddJoueur(10000);
 
 
         for (Club club :
                 participants) {
-            club.genererEffectif(20, base_de_donnees_joueur);
+            club.genererEffectif(40, base_de_donnees_joueur);
         }
 
 
 
 //////////////////////////////////////////////////////////////////////////
 
-        Championnat champ = new Championnat(3, 0, 1, participants.get(0), participants);
+        Championnat champ = new Championnat(3, 0, 1, participants.get(0) /*null*/, participants);
 
         while (!champ.getProgramme_match().isEmpty()) {
             champ.jouer_match();

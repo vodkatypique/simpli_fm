@@ -69,12 +69,16 @@ class Club extends Structure {
         this.effectif.remove(joueur);
     }
 
-    public static int getNbClub() {
-        return NB_CLUB;
-    }
 
     public void programmer_compo() {
-
+        Scanner myObj = new Scanner(System.in);  // Create a Scanner object
+        String change = "y";
+        if (this.compo.getGk() != null) {
+            this.compo.afficheCompo();
+            System.out.println("changer de compo ? Y/N");
+            change = myObj.next();
+        }
+        if (change.equalsIgnoreCase("y")) {
         this.compo.reset();
         ArrayList<Joueur> selectionnable = new ArrayList<Joueur>(this.effectif);
 
@@ -83,7 +87,6 @@ class Club extends Structure {
             for (Joueur j : selectionnable) {
                 System.out.println(j.getStat_gk() + ", " + j.toStringEtatPhysique() + " index : " + selectionnable.indexOf(j));
             }
-            Scanner myObj = new Scanner(System.in);  // Create a Scanner object
             System.out.println("Index du joueur choisi pour jouer GK");
 
             int choix = myObj.nextInt();  // Read user input
@@ -98,51 +101,53 @@ class Club extends Structure {
 
         while (this.compo.getNbTitulaire() < 10) {
             this.compo.afficheCompo();
-            System.out.println("encore " + (10 - this.compo.getNbTitulaire()) + "joueur a choisir");
+            int nbDispo = 10 - this.compo.getNbTitulaire();
+            System.out.println("encore " + nbDispo + " joueur a choisir");
             for (Joueur j : selectionnable) {
                 System.out.println("att: " + j.getStat_att() + " | def: " + j.getStat_def() + "|" + j.toStringEtatPhysique() + " |index : " + selectionnable.indexOf(j));
             }
-            Scanner myObj = new Scanner(System.in);  // Create a Scanner object
+
             System.out.println("def ou att ?");
-
             String choix = myObj.next();  // Read user input
-
             while (!choix.equalsIgnoreCase("att") && !choix.equalsIgnoreCase("def")) {
                 System.out.println("def ou att ?");
                 choix = myObj.next();
             }
-            if (choix.equalsIgnoreCase("att")) {
-                System.out.println("choisissez votre att : ");
+
+            System.out.println("combien de " + choix + " ?");
+            int occ = myObj.nextInt();
+            while (occ > nbDispo || occ < 1) {
+                System.out.println("combien de " + choix + " ? maximum de " + nbDispo);
+                occ = myObj.nextInt();
+            }
+
+
+            for (int i = 0; i < occ; i++) {
+                System.out.println("choisissez votre " + choix + ": ");
+
                 for (Joueur j : selectionnable) {
-                    System.out.println(j.getStat_att() + ", " + j.toStringEtatPhysique() + "index : " + selectionnable.indexOf(j));
+                    if (choix.equalsIgnoreCase("att")) {
+                        System.out.println(j.getStat_att() + ", " + j.toStringEtatPhysique() + " index : " + selectionnable.indexOf(j));
+                    } else {
+                        System.out.println(j.getStat_def() + ", " + j.toStringEtatPhysique() + " index : " + selectionnable.indexOf(j));
+                    }
                 }
-                System.out.println("Index du joueur choisi pour jouer att");
+                System.out.println("Index du joueur choisi pour jouer " + choix + " : ");
 
-                int att = myObj.nextInt();  // Read user input
-                while (selectionnable.size() - 1 < att) {
-                    System.out.println("Index du joueur choisi pour jouer att");
-                    att = myObj.nextInt();  // Read user input
-                }
-
-                this.compo.ajouter_joueur("att", selectionnable.get(att));
-                selectionnable.remove(att);
-            } else {
-                System.out.println("choisissez votre def : ");
-                for (Joueur j : selectionnable) {
-                    System.out.println(j.getStat_def() + ", " + j.toStringEtatPhysique() + "index : " + selectionnable.indexOf(j));
-                }
-                System.out.println("Index du joueur choisi pour jouer def");
-
-                int def = myObj.nextInt();  // Read user input
-                while (selectionnable.size() - 1 < def) {
-                    System.out.println("Index du joueur choisi pour jouer def");
-                    def = myObj.nextInt();  // Read user input
+                int index = myObj.nextInt();  // Read user input
+                while (selectionnable.size() - 1 < index) {
+                    System.out.println("Index du joueur choisi pour jouer " + choix + " : ");
+                    index = myObj.nextInt();  // Read user input
                 }
 
-                this.compo.ajouter_joueur("def", selectionnable.get(def));
-                selectionnable.remove(def);
+                this.compo.ajouter_joueur(choix.toLowerCase(), selectionnable.get(index));
+                selectionnable.remove(index);
+
+
             }
         }
+        }
+        this.generer_remplacant();
     }
 
     public void genererEffectif(int taille, ArrayList<Joueur> bdd) {
@@ -151,6 +156,25 @@ class Club extends Structure {
             int rnd = index.nextInt(bdd.size());
             bdd.get(rnd).integre_effectif(this);
             bdd.remove(rnd);
+        }
+    }
+
+
+    public void generer_remplacant() {
+        this.compo.reset_remplacant();
+        Random rnd = new Random();
+        ArrayList<Joueur> remplacantPossible = new ArrayList<Joueur>();
+        for (Joueur j :
+                this.effectif) {
+            if (!this.compo.contient(j)) {
+                remplacantPossible.add(j);
+            }
+        }
+        for (int i = 0; i < 7; i++) {
+            int choix = rnd.nextInt(remplacantPossible.size() - 1);
+            Joueur rempl = remplacantPossible.get(choix);
+            this.compo.ajouter_remplacant(rempl);
+            remplacantPossible.remove(rempl);
         }
     }
 
@@ -178,6 +202,7 @@ class Club extends Structure {
             rnd = gen_rnd.nextInt(selectionnable.size());
             this.compo.ajouter_joueur("att", this.effectif.get(rnd));
             selectionnable.remove(rnd);
+
         }
     }
 
@@ -187,6 +212,10 @@ class Club extends Structure {
 
     public void addPoints(int points) {
         this.points += points;
+    }
+
+    public int getNbClub() {
+        return this.NB_CLUB;
     }
 }
 
