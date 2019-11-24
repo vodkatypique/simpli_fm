@@ -3,9 +3,9 @@ package projet_poo;
 abstract class Personne {
     private static int NB_PERSONNE = 0;
 
-    private String prenom;
+    private final String prenom;
 
-    private String nom;
+    private final String nom;
 
     private int age;
 
@@ -17,4 +17,8 @@ abstract class Personne {
         NB_PERSONNE += 1;
     }
 
+    @Override
+    public String toString() {
+        return this.prenom + " " + this.nom.toUpperCase() + "agé de " + this.age;
+    }
 }

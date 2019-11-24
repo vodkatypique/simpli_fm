@@ -198,11 +198,9 @@ class Club extends Structure {
         }
 
         while (this.compo.getNbTitulaire() < 10) {
-            int titu = this.compo.getNbTitulaire();
             rnd = gen_rnd.nextInt(selectionnable.size());
             this.compo.ajouter_joueur("att", this.effectif.get(rnd));
             selectionnable.remove(rnd);
-
         }
     }
 
@@ -215,7 +213,7 @@ class Club extends Structure {
     }
 
     public int getNbClub() {
-        return this.NB_CLUB;
+        return NB_CLUB;
     }
 }
 

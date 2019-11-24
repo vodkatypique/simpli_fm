@@ -26,7 +26,7 @@ public class Jeu {
             participants.add(0, club);
             participants.get(0).genererEffectif(taille_effectif, this.base_de_donnees_joueur);
         }
-        this.championnat = new Championnat(3, 0, 1, (joueur_humain == true) ? participants.get(0) : null, participants);
+        this.championnat = new Championnat(3, 0, 1, (joueur_humain) ? participants.get(0) : null, participants);
         this.Jouer();
     }
 
@@ -34,14 +34,13 @@ public class Jeu {
         this(false, nombre_bots, taille_effectif, null, null, 0, 0, null, null);
     }
 
-    private ArrayList<Joueur> genererBddJoueur(int taille) {
+    private void genererBddJoueur(int taille) {
         this.base_de_donnees_joueur = new ArrayList<Joueur>();
         Random rand = new Random();
 
         for (int i = 0; i < taille; i++) {
             this.base_de_donnees_joueur.add(new Joueur(rand));
         }
-        return base_de_donnees_joueur;
     }
 
     private void Jouer() {

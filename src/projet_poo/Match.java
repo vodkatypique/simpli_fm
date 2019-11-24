@@ -27,6 +27,15 @@ public class Match {
                 j.recupere();
             }
         }
+
+        for (Joueur j :
+                ext.getEffectif()) {
+            if (j.estTitulaire()) {
+                j.seFatigue();
+            } else {
+                j.recupere();
+            }
+        }
     }
 
 
