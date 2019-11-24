@@ -85,7 +85,7 @@ class Club extends Structure {
         while (this.compo.getGk() == null) {
             System.out.println("choisissez votre gardien : ");
             for (Joueur j : selectionnable) {
-                System.out.println(j.getStat_gk() + ", " + j.toStringEtatPhysique() + " index : " + selectionnable.indexOf(j));
+                System.out.println("GK : " + j.getStat_gk() + ", " + j.toStringEtatPhysique() + " index : " + selectionnable.indexOf(j));
             }
             System.out.println("Index du joueur choisi pour jouer GK");
 

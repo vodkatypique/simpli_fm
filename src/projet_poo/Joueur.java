@@ -14,9 +14,6 @@ class Joueur extends Personne {
     private float etat_physique;
 
 
-    public void jouer() {
-    }
-
     public Joueur(String prenom, String nom, int age, int stat_att, int stat_def, int stat_gk, Club club) {
         super(prenom, nom, age);
         this.stat_att = stat_att;
