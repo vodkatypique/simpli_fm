@@ -11,7 +11,7 @@ public class Jeu {
 
     public Jeu(boolean joueur_humain, int nombre_bots, int taille_effectif, String nom_entr, String prenom_entr, int age_entr, int capa_stade, String nom_club, String date_club) {
         this.genererBddJoueur(taille_effectif * nombre_bots * 20);
-        for (int i = 0; i < nombre_bots; i++) {
+        for (int i = 0; i < nombre_bots + 1; i++) {
             this.participants.add(new Club());
         }
         for (Club club :

@@ -125,15 +125,16 @@ class Compo {
     public void faireChangement() {
         Scanner scan = new Scanner(System.in);
         System.out.println("combien de changements ? ");
-        int choix = scan.nextInt();
-        while (choix < 0 || choix > 3) {
+        int nb_changement = scan.nextInt();
+        while (nb_changement < 0 || nb_changement > 3) {
             System.out.println("combien de changements ? entre 1 et 3");
-            choix = scan.nextInt();
+            nb_changement = scan.nextInt();
         }
         this.afficheCompo();
-        for (int i = 0; i < choix; i++) {
+        for (int i = 0; i < nb_changement; i++) {
+            System.out.println(i);
             System.out.println("QUI SORT ? ");
-            choix = scan.nextInt();
+            int choix = scan.nextInt();
             while (choix > 10) {
                 System.out.println("QUI ENTRE ? ");
                 this.afficheRemplacants();
