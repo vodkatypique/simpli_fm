@@ -1,5 +1,10 @@
-package projet_poo;
+/*
+ * @nickname : vodkatypique
+ * @name : CAFFIN Clement
+ * @date : 11 / 2019
+ */
 
+package projet_poo;
 
 public class Main {
 
