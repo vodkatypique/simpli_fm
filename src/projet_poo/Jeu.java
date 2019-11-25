@@ -10,7 +10,7 @@ public class Jeu {
 
 
     public Jeu(boolean joueur_humain, int nombre_bots, int taille_effectif, String nom_entr, String prenom_entr, int age_entr, int capa_stade, String nom_club, String date_club) {
-        this.genererBddJoueur(taille_effectif * nombre_bots * 20);
+        this.genererBddJoueur(taille_effectif * nombre_bots * 15);
         for (int i = 0; i < nombre_bots + 1; i++) {
             this.participants.add(new Club());
         }
@@ -29,7 +29,7 @@ public class Jeu {
         this.championnat = new Championnat(3, 0, 1, (joueur_humain) ? participants.get(0) : null, participants);
     }
 
-    public Jeu(int nombre_bots, int taille_effectif, int taille_bdd) {
+    public Jeu(int nombre_bots, int taille_effectif) {
         this(false, nombre_bots, taille_effectif, null, null, 0, 0, null, null);
     }
 
@@ -43,8 +43,8 @@ public class Jeu {
     }
 
     public void Jouer() {
-        while (!this.championnat.getProgramme_match().isEmpty()) {
-            this.championnat.jouer_match();
+        while (!this.championnat.getProgrammeMatch().isEmpty()) {
+            this.championnat.jouerMatch();
             this.championnat.getClassement();
         }
     }
@@ -52,18 +52,21 @@ public class Jeu {
 
     @Override
     public String toString() {
-        String participant = "";
-        String stades = "";
+        StringBuilder participant = new StringBuilder();
+        participant.append("  --" + this.participants.size() + "clubs--  \n");
+        StringBuilder stades = new StringBuilder();
+        stades.append("  --" + Stade.NB_STADE + "stades--  \n");
         for (Club part :
                 this.participants) {
-            participant += part.toString() + "\n";
-            stades += part.getStade().toString() + "\n";
+            participant.append(part.toString()).append("\n");
+            stades.append(part.getStade().toString()).append("\n");
         }
 
-        String joueurs = "";
+        StringBuilder joueurs = new StringBuilder();
+        joueurs.append("  --" + this.base_de_donnees_joueur.size() + "joueurs--  \n");
         for (Joueur j :
                 this.base_de_donnees_joueur) {
-            joueurs += j.affichageString() + "\n";
+            joueurs.append(j.affichageString()).append("\n");
         }
 
         String entete = "#-----Presentation de la bdd-----#\n";

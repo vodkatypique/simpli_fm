@@ -42,7 +42,7 @@ public class Match {
     public Club partie(Club utilisateur) {
         double res = 0;
         for (int i = 0; i < 2; i++) {
-            res += simu_mitemps();
+            res += simuMitemps();
             if (utilisateur != null) {
                 if (res > 0) {
                     System.out.println("Domicile domine");
@@ -79,7 +79,7 @@ public class Match {
 
     }
 
-    private double simu_mitemps() {
+    private double simuMitemps() {
         Club dom = this.domicile;
         Club ext = this.exterieur;
 
@@ -88,30 +88,30 @@ public class Match {
         ArrayList<Joueur> ligne_def_dom = new ArrayList<Joueur>(dom.getCompo().getDef());
         ArrayList<Joueur> ligne_def_ext = new ArrayList<Joueur>(ext.getCompo().getDef());
 
-        float gk_dom = dom.getCompo().getGk().getStat_gk();
-        float gk_ext = ext.getCompo().getGk().getStat_gk();
+        float gk_dom = dom.getCompo().getGk().getStatGk();
+        float gk_ext = ext.getCompo().getGk().getStatGk();
 
         float att_dom = 0;
         for (Joueur j :
                 ligne_att_dom) {
-            att_dom += j.getStat_att();
+            att_dom += j.getStatAtt();
         }
         float att_ext = 0;
         for (Joueur j :
                 ligne_att_ext) {
-            att_ext += j.getStat_att();
+            att_ext += j.getStatAtt();
         }
 
         float def_dom = 0;
         for (Joueur j :
                 ligne_def_dom) {
-            def_dom += j.getStat_def();
+            def_dom += j.getStatDef();
         }
 
         float def_ext = 0;
         for (Joueur j :
                 ligne_def_ext) {
-            def_ext += j.getStat_def();
+            def_ext += j.getStatDef();
         }
 
         double score_dom = ((1.5 * att_dom) - def_ext) / gk_ext;

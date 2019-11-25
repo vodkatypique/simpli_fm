@@ -47,7 +47,7 @@ class Club extends Structure {
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        return super.toString() + ", club nommé " + this.nom;
+        return "club nommé " + this.nom;
     }
 
     /**
@@ -70,7 +70,7 @@ class Club extends Structure {
     }
 
 
-    public void programmer_compo() {
+    public void programmerCompo() {
         Scanner myObj = new Scanner(System.in);  // Create a Scanner object
         String change = "y";
         if (this.compo.getGk() != null) {
@@ -84,7 +84,7 @@ class Club extends Structure {
         while (this.compo.getGk() == null) {
             System.out.println("choisissez votre gardien : ");
             for (Joueur j : selectionnable) {
-                System.out.println("GK : " + j.getStat_gk() + ", " + j.toStringEtatPhysique() + " index : " + selectionnable.indexOf(j));
+                System.out.println("GK : " + j.getStatGk() + ", " + j.toStringEtatPhysique() + " index : " + selectionnable.indexOf(j));
             }
             System.out.println("Index du joueur choisi pour jouer GK");
 
@@ -94,7 +94,7 @@ class Club extends Structure {
                 choix = myObj.nextInt();  // Read user input
             }
 
-            this.compo.ajouter_gk(selectionnable.get(choix));
+            this.compo.ajouterGk(selectionnable.get(choix));
             selectionnable.remove(choix);
         }
 
@@ -103,7 +103,7 @@ class Club extends Structure {
             int nbDispo = 10 - this.compo.getNbTitulaire();
             System.out.println("encore " + nbDispo + " joueur a choisir");
             for (Joueur j : selectionnable) {
-                System.out.println("att: " + j.getStat_att() + " | def: " + j.getStat_def() + "|" + j.toStringEtatPhysique() + " |index : " + selectionnable.indexOf(j));
+                System.out.println("att: " + j.getStatAtt() + " | def: " + j.getStatDef() + "|" + j.toStringEtatPhysique() + " |index : " + selectionnable.indexOf(j));
             }
 
             System.out.println("def ou att ?");
@@ -126,9 +126,9 @@ class Club extends Structure {
 
                 for (Joueur j : selectionnable) {
                     if (choix.equalsIgnoreCase("att")) {
-                        System.out.println(j.getStat_att() + ", " + j.toStringEtatPhysique() + " index : " + selectionnable.indexOf(j));
+                        System.out.println(j.getStatAtt() + ", " + j.toStringEtatPhysique() + " index : " + selectionnable.indexOf(j));
                     } else {
-                        System.out.println(j.getStat_def() + ", " + j.toStringEtatPhysique() + " index : " + selectionnable.indexOf(j));
+                        System.out.println(j.getStatDef() + ", " + j.toStringEtatPhysique() + " index : " + selectionnable.indexOf(j));
                     }
                 }
                 System.out.println("Index du joueur choisi pour jouer " + choix + " : ");
@@ -139,28 +139,28 @@ class Club extends Structure {
                     index = myObj.nextInt();  // Read user input
                 }
 
-                this.compo.ajouter_joueur(choix.toLowerCase(), selectionnable.get(index));
+                this.compo.ajouterJoueur(choix.toLowerCase(), selectionnable.get(index));
                 selectionnable.remove(index);
 
 
             }
         }
         }
-        this.generer_remplacant();
+        this.genererRemplacant();
     }
 
     public void genererEffectif(int taille, ArrayList<Joueur> bdd) {
         for (int i = 0; i < taille; i++) {
             Random index = new Random();
             int rnd = index.nextInt(bdd.size());
-            bdd.get(rnd).integre_effectif(this);
+            bdd.get(rnd).integreEffectif(this);
             bdd.remove(rnd);
         }
     }
 
 
-    public void generer_remplacant() {
-        this.compo.reset_remplacant();
+    public void genererRemplacant() {
+        this.compo.resetRemplacant();
         Random rnd = new Random();
         ArrayList<Joueur> remplacantPossible = new ArrayList<Joueur>();
         for (Joueur j :
@@ -172,18 +172,18 @@ class Club extends Structure {
         for (int i = 0; i < 7; i++) {
             int choix = rnd.nextInt(remplacantPossible.size() - 1);
             Joueur rempl = remplacantPossible.get(choix);
-            this.compo.ajouter_remplacant(rempl);
+            this.compo.ajouterRemplacant(rempl);
             remplacantPossible.remove(rempl);
         }
     }
 
-    public void generer_compo() {
+    public void genererCompo() {
         this.compo.reset();
         ArrayList<Joueur> selectionnable = new ArrayList<Joueur>(this.effectif);
 
         Random gen_rnd = new Random();
         int rnd = gen_rnd.nextInt((this.effectif.size()));
-        this.compo.ajouter_gk(this.effectif.get(rnd));
+        this.compo.ajouterGk(this.effectif.get(rnd));
         selectionnable.remove(rnd);
 
         rnd = gen_rnd.nextInt(7);
@@ -192,13 +192,13 @@ class Club extends Structure {
         }
 
         for (int i = 0; i < rnd; i++) {
-            this.compo.ajouter_joueur("def", this.effectif.get(rnd));
+            this.compo.ajouterJoueur("def", this.effectif.get(rnd));
             selectionnable.remove(rnd);
         }
 
         while (this.compo.getNbTitulaire() < 10) {
             rnd = gen_rnd.nextInt(selectionnable.size());
-            this.compo.ajouter_joueur("att", this.effectif.get(rnd));
+            this.compo.ajouterJoueur("att", this.effectif.get(rnd));
             selectionnable.remove(rnd);
         }
     }

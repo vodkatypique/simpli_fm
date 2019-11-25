@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 class Stade extends Structure {
+    static int NB_STADE = 0;
     static final int CAPADEFAUT = 10000;
     private int capacite;
 
@@ -11,6 +12,7 @@ class Stade extends Structure {
 
     public Stade(int capacite, String date) {
         super(date);
+        NB_STADE += 1;
         this.capacite = capacite;
         this.supporters = new ArrayList<Supporter>(this.capacite);
     }
@@ -28,7 +30,7 @@ class Stade extends Structure {
             this.supporters.remove(this.supporters.size() - 1);
         }
         Random rand = new Random();
-        double borne_inf = Double.valueOf(rand.nextInt(this.capacite / 2));
+        double borne_inf = rand.nextInt(this.capacite / 2);
 
         //System.out.println("inf : " +borne_inf/this.capacite);
         double res = borne_inf + rand.nextInt(capacite + 1);

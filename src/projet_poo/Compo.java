@@ -20,7 +20,7 @@ class Compo {
 
     }
 
-    public void ajouter_remplacant(Joueur joueur) {
+    public void ajouterRemplacant(Joueur joueur) {
         if (this.remplacants.size() < 7) {
             this.remplacants.add(joueur);
         }
@@ -36,11 +36,11 @@ class Compo {
     }
 
 
-    public void reset_remplacant() {
+    public void resetRemplacant() {
         this.remplacants = new ArrayList<Joueur>();
     }
 
-    public void ajouter_joueur(String ligne, Joueur joueur) {
+    public void ajouterJoueur(String ligne, Joueur joueur) {
         if (this.getNbTitulaire() < 10) {
 
             switch (ligne) {
@@ -54,7 +54,7 @@ class Compo {
         }
     }
 
-    public void ajouter_gk(Joueur joueur) {
+    public void ajouterGk(Joueur joueur) {
         if (this.gk == null) {
             this.gk = joueur;
         }

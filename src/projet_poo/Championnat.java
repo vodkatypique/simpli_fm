@@ -2,7 +2,6 @@ package projet_poo;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 class Championnat extends Structure {
 
@@ -10,15 +9,15 @@ class Championnat extends Structure {
 
     private Club joueur;
 
-    private int point_victoire;
+    private int ptsVictoire;
 
-    private int point_nul;
+    private int ptsNul;
 
-    private int point_defaite;
+    private int ptsDef;
 
     private ArrayList<Club> classement;
 
-    private ArrayList<Match> programme_match;
+    private ArrayList<Match> programmeMatch;
 
 
     public Championnat(String date, int vic, int def, int nul, Club joueur, ArrayList<Club> participants) {
@@ -28,33 +27,33 @@ class Championnat extends Structure {
         for (Club club : participants) {
             this.classement.add(club);
         }
-        this.programme_match = new ArrayList<Match>();
+        this.programmeMatch = new ArrayList<Match>();
         this.participants = participants;
-        this.point_defaite = def;
-        this.point_nul = nul;
-        this.point_victoire = vic;
-        this.programmer_matchs();
+        this.ptsDef = def;
+        this.ptsNul = nul;
+        this.ptsVictoire = vic;
+        this.programmerMatchs();
     }
 
     public Championnat(int vic, int def, int nul, Club joueur, ArrayList<Club> participants) {
         this("Inconnue", vic, def, nul, joueur, participants);
     }
 
-    public void programmer_matchs() {
-        this.programme_match = new ArrayList<Match>();
+    public void programmerMatchs() {
+        this.programmeMatch = new ArrayList<Match>();
         for (Club club_dom : this.participants) {
             for (Club club_ext : this.participants) {
                 if (club_dom != club_ext) {
                     Match match = new Match(club_dom, club_ext);
-                    this.programme_match.add(match);
+                    this.programmeMatch.add(match);
                 }
             }
         }
-        Collections.shuffle(this.programme_match);
+        Collections.shuffle(this.programmeMatch);
     }
 
-    public void jouer_match() {
-        Match match = this.programme_match.remove(0);
+    public void jouerMatch() {
+        Match match = this.programmeMatch.remove(0);
         System.out.println(match);
         Club dom = match.getDomicile();
         Club ext = match.getExterieur();
@@ -66,32 +65,32 @@ class Championnat extends Structure {
                 utilisateur = ext;
             }
             if (dom.equals(this.joueur)) {
-                match.getDomicile().programmer_compo();
-                match.getExterieur().generer_compo();
+                match.getDomicile().programmerCompo();
+                match.getExterieur().genererCompo();
             } else {
-                match.getExterieur().programmer_compo();
-                match.getDomicile().generer_compo();
+                match.getExterieur().programmerCompo();
+                match.getDomicile().genererCompo();
             }
         } else {
-            match.getDomicile().generer_compo();
-            match.getExterieur().generer_compo();
+            match.getDomicile().genererCompo();
+            match.getExterieur().genererCompo();
         }
         Club gagnant = match.partie(utilisateur);
 
 
         if (gagnant == null) {
             System.out.println("match nul");
-            this.classement.get(this.classement.indexOf(dom)).addPoints(this.point_nul);
-            this.classement.get(this.classement.indexOf(ext)).addPoints(this.point_nul);
+            this.classement.get(this.classement.indexOf(dom)).addPoints(this.ptsNul);
+            this.classement.get(this.classement.indexOf(ext)).addPoints(this.ptsNul);
         } else {
             System.out.println("le gagnant est : " + gagnant.toString());
             if (gagnant == dom) {
-                this.classement.get(this.classement.indexOf(dom)).addPoints(this.point_victoire);
-                this.classement.get(this.classement.indexOf(ext)).addPoints(this.point_defaite);
+                this.classement.get(this.classement.indexOf(dom)).addPoints(this.ptsVictoire);
+                this.classement.get(this.classement.indexOf(ext)).addPoints(this.ptsDef);
 
             } else {
-                this.classement.get(this.classement.indexOf(dom)).addPoints(this.point_defaite);
-                this.classement.get(this.classement.indexOf(ext)).addPoints(this.point_victoire);
+                this.classement.get(this.classement.indexOf(dom)).addPoints(this.ptsDef);
+                this.classement.get(this.classement.indexOf(ext)).addPoints(this.ptsVictoire);
 
             }
         }
@@ -102,12 +101,7 @@ class Championnat extends Structure {
      * @return the classement
      */
     public void getClassement() {
-        Collections.sort(this.classement, new Comparator<Club>() {
-            @Override
-            public int compare(Club club, Club t1) {
-                return t1.getPoints() - club.getPoints();
-            }
-        });
+        Collections.sort(this.classement, (club, t1) -> t1.getPoints() - club.getPoints()); //j'ai remplacé le new comparateur par une lambda, pareil mais plus court
 
         System.out.println("CLASSEMENT : ");
         for (Club club :
@@ -118,7 +112,7 @@ class Championnat extends Structure {
     }
 
 
-    public ArrayList<Match> getProgramme_match() {
-        return programme_match;
+    public ArrayList<Match> getProgrammeMatch() {
+        return programmeMatch;
     }
 }
