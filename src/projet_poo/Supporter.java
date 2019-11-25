@@ -15,4 +15,9 @@ public class Supporter extends Personne {
     public boolean isHooligan() {
         return hooligan;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + ((isHooligan()) ? " est hooligan" : "n'est pas un hooligan");
+    }
 }

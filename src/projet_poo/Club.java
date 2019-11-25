@@ -47,7 +47,7 @@ class Club extends Structure {
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        return this.nom;
+        return super.toString() + ", club nommé " + this.nom;
     }
 
     /**
@@ -214,5 +214,6 @@ class Club extends Structure {
     public int getNbClub() {
         return NB_CLUB;
     }
+
 }
 

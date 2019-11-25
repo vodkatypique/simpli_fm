@@ -15,12 +15,13 @@ class Joueur extends Personne {
 
 
     public Joueur(String prenom, String nom, int age, int stat_att, int stat_def, int stat_gk, Club club) {
-        super(prenom, nom, age);
+        super(prenom, nom, (age < 16) ? 16 : age);
         this.stat_att = stat_att;
         this.stat_def = stat_def;
         this.stat_gk = stat_gk;
         this.club = club;
         this.etat_physique = 1;
+
     }
 
     public Joueur(Random rand) {
@@ -60,6 +61,10 @@ class Joueur extends Personne {
     public String toString() {
         // TODO Auto-generated method stub
         return this.toStringGardien() + ", " + this.toStringDef() + ", " + this.toStringAtt() + ", " + this.toStringEtatPhysique();
+    }
+
+    public String affichageString() {
+        return super.toString() + ", " + this.toString();
     }
 
     public String toStringGardien() {

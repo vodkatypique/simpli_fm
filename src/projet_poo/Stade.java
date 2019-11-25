@@ -63,4 +63,9 @@ class Stade extends Structure {
 
         return bonus;
     }
+
+    @Override
+    public String toString() {
+        return "Stade de " + this.capacite + " places, " + super.toString();
+    }
 }

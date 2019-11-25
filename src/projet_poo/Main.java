@@ -7,7 +7,8 @@ public class Main {
 
         //Jeu jeu = new Jeu(5, 20, 1000);
         Jeu jeu = new Jeu(true, 1, 20, "Dupond", "Gégé", 65, 90000, "FCV", "1999");
-
+        System.out.println(jeu);
+        //jeu.Jouer();
     }
 
 

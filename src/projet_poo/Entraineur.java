@@ -23,4 +23,8 @@ class Entraineur extends Personne {
         this.club_entraine = club_entraine;
     }
 
+    @Override
+    public String toString() {
+        return super.toString() + ", entraineur de " + this.club_entraine;
+    }
 }

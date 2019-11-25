@@ -6,4 +6,9 @@ abstract class Structure {
     Structure(String date) {
         this.date_creation = date;
     }
+
+    @Override
+    public String toString() {
+        return "Structure qui date de " + this.date_creation;
+    }
 }

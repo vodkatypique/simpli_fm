@@ -11,14 +11,14 @@ abstract class Personne {
 
 
     Personne(String prenom, String nom, int age) {
-        this.prenom = prenom + NB_PERSONNE;
-        this.nom = nom + NB_PERSONNE;
+        this.prenom = prenom + "_" + NB_PERSONNE;
+        this.nom = nom + "_" + NB_PERSONNE;
         this.age = age;
         NB_PERSONNE += 1;
     }
 
     @Override
     public String toString() {
-        return this.prenom + " " + this.nom.toUpperCase() + "agé de " + this.age;
+        return this.prenom + " " + this.nom.toUpperCase() + " agé de " + this.age + "ans";
     }
 }

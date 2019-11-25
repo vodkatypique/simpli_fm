@@ -27,7 +27,6 @@ public class Jeu {
             participants.get(0).genererEffectif(taille_effectif, this.base_de_donnees_joueur);
         }
         this.championnat = new Championnat(3, 0, 1, (joueur_humain) ? participants.get(0) : null, participants);
-        this.Jouer();
     }
 
     public Jeu(int nombre_bots, int taille_effectif, int taille_bdd) {
@@ -43,7 +42,7 @@ public class Jeu {
         }
     }
 
-    private void Jouer() {
+    public void Jouer() {
         while (!this.championnat.getProgramme_match().isEmpty()) {
             this.championnat.jouer_match();
             this.championnat.getClassement();
@@ -51,4 +50,23 @@ public class Jeu {
     }
 
 
+    @Override
+    public String toString() {
+        String participant = "";
+        String stades = "";
+        for (Club part :
+                this.participants) {
+            participant += part.toString() + "\n";
+            stades += part.getStade().toString() + "\n";
+        }
+
+        String joueurs = "";
+        for (Joueur j :
+                this.base_de_donnees_joueur) {
+            joueurs += j.affichageString() + "\n";
+        }
+
+        String entete = "#-----Presentation de la bdd-----#\n";
+        return entete + participant + stades + joueurs;
+    }
 }
