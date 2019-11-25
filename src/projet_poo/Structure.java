@@ -12,3 +12,4 @@ abstract class Structure {
         return "Structure qui date de " + this.dateCreation;
     }
 }
+
