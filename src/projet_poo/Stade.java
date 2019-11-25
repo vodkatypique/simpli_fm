@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 class Stade extends Structure {
+    static final int CAPADEFAUT = 10000;
     private int capacite;
 
     private ArrayList<Supporter> supporters;
@@ -19,7 +20,7 @@ class Stade extends Structure {
     }
 
     public Stade() {
-        this(10000, "inconnue");
+        this(CAPADEFAUT, "inconnue");
     }
 
     public void remplissage() {

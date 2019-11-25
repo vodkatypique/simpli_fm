@@ -35,6 +35,7 @@ class Compo {
         return res;
     }
 
+
     public void reset_remplacant() {
         this.remplacants = new ArrayList<Joueur>();
     }
@@ -123,56 +124,68 @@ class Compo {
     }
 
     public void faireChangement() {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("combien de changements ? ");
-        int nb_changement = scan.nextInt();
-        while (nb_changement < 0 || nb_changement > 3) {
-            System.out.println("combien de changements ? entre 1 et 3");
-            nb_changement = scan.nextInt();
-        }
-        this.afficheCompo();
-        for (int i = 0; i < nb_changement; i++) {
-            System.out.println(i);
-            System.out.println("QUI SORT ? ");
-            int choix = scan.nextInt();
-            while (choix > 10) {
+        try {
+            Scanner scan = new Scanner(System.in);
+            System.out.println("combien de changements ? ");
+            int nb_changement = 0;
+            try {
+                nb_changement = scan.nextInt();
+            } catch (Exception e) {
+                System.out.println("ERRREEEUUUURRRR");
+                nb_changement = 0;
+                System.out.println("pas de changement");
+            }
+            while (nb_changement < 0 || nb_changement > 3) {
+                System.out.println("combien de changements ? entre 1 et 3");
+                nb_changement = scan.nextInt();
+            }
+            this.afficheCompo();
+            for (int i = 0; i < nb_changement; i++) {
+                System.out.println(i);
+                System.out.println("QUI SORT ? ");
+                int choix = scan.nextInt();
+                while (choix > 10) {
+                    System.out.println("QUI ENTRE ? ");
+                    this.afficheRemplacants();
+                    choix = scan.nextInt();
+                }
+                Joueur sortant = this.getTitulaire().get(choix);
+                if (this.gk == sortant) {
+                    this.gk = null;
+                }
+
+                this.def.remove(sortant);
+                this.att.remove(sortant);
+
+                for (Joueur j :
+                        this.remplacants) {
+                    System.out.println(j.toString() + " Index : " + this.remplacants.indexOf(j));
+                }
                 System.out.println("QUI ENTRE ? ");
-                this.afficheRemplacants();
                 choix = scan.nextInt();
-            }
-            Joueur sortant = this.getTitulaire().get(choix);
-            if (this.gk == sortant) {
-                this.gk = null;
-            }
+                while (choix > 6) {
+                    System.out.println("QUI ENTRE ? ");
+                    choix = scan.nextInt();
+                }
+                System.out.println("il entre en att ou en def ou gk ? ");
+                String poste = scan.next();
+                while (!poste.equalsIgnoreCase("att") && !poste.equalsIgnoreCase("def") && !poste.equalsIgnoreCase("gk")) {
+                    System.out.println("ATT ou DEF ou GK");
+                    poste = scan.next();
+                }
 
-            this.def.remove(sortant);
-            this.att.remove(sortant);
-
-            for (Joueur j :
-                    this.remplacants) {
-                System.out.println(j.toString() + " Index : " + this.remplacants.indexOf(j));
+                if (poste.equalsIgnoreCase("gk")) {
+                    this.gk = this.remplacants.get(choix);
+                } else if (poste.equalsIgnoreCase("att")) {
+                    this.att.add(this.remplacants.get(choix));
+                } else {
+                    this.def.add(this.remplacants.get(choix));
+                }
+                this.remplacants.remove(choix);
             }
-            System.out.println("QUI ENTRE ? ");
-            choix = scan.nextInt();
-            while (choix > 6) {
-                System.out.println("QUI ENTRE ? ");
-                choix = scan.nextInt();
-            }
-            System.out.println("il entre en att ou en def ou gk ? ");
-            String poste = scan.next();
-            while (!poste.equalsIgnoreCase("att") && !poste.equalsIgnoreCase("def") && !poste.equalsIgnoreCase("gk")) {
-                System.out.println("ATT ou DEF ou GK");
-                poste = scan.next();
-            }
-
-            if (poste.equalsIgnoreCase("gk")) {
-                this.gk = this.remplacants.get(choix);
-            } else if (poste.equalsIgnoreCase("att")) {
-                this.att.add(this.remplacants.get(choix));
-            } else {
-                this.def.add(this.remplacants.get(choix));
-            }
-            this.remplacants.remove(choix);
+        } catch (Exception e) {
+            System.out.println("Erreur, crash");
+            System.exit(1);
         }
     }
 
