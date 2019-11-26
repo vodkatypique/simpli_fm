@@ -28,7 +28,7 @@ class Compo {
 
     public boolean contient(Joueur j) {
         boolean res = false;
-        System.out.println(this.def.contains(j));
+        //System.out.println(this.def.contains(j));
         if (this.gk == j || this.def.contains(j) || this.att.contains(j)) {
             res = true;
         }
@@ -141,7 +141,6 @@ class Compo {
             }
             this.afficheCompo();
             for (int i = 0; i < nb_changement; i++) {
-                System.out.println(i);
                 System.out.println("QUI SORT ? ");
                 int choix = scan.nextInt();
                 while (choix > 10) {
@@ -187,6 +186,6 @@ class Compo {
             System.out.println("Erreur, crash");
             System.exit(1);
         }
-    }
 
+    }
 }

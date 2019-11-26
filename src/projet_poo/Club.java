@@ -76,6 +76,7 @@ class Club extends Structure {
         if (this.compo.getGk() != null) {
             this.compo.afficheCompo();
             System.out.println("changer de compo ? Y/N");
+            change = myObj.next();
         }
         if (change.equalsIgnoreCase("y")) {
         this.compo.reset();

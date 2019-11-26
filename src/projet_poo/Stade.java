@@ -38,7 +38,7 @@ class Stade extends Structure {
             res = this.capacite;
         }
         for (int i = 0; i < res; i++) {
-            boolean hooligan = rand.nextBoolean() && rand.nextBoolean() && rand.nextBoolean(); //pour diminuer la proportion de hooligan max a 1/8
+            boolean hooligan = rand.nextBoolean() && rand.nextBoolean() && rand.nextBoolean(); //pour diminuer la proportion de hooligan a 1/8 en moyenne
             this.supporters.add(new Supporter("prenomsupp", "nomsupp", 18, hooligan));
         }
     }

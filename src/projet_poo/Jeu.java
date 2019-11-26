@@ -25,6 +25,8 @@ public class Jeu {
             Club club = new Club(date_club, nom_club, entr, stade);
             participants.add(0, club);
             participants.get(0).genererEffectif(taille_effectif, this.base_de_donnees_joueur);
+        } else {
+            participants.remove(participants.size() - 1);
         }
         this.championnat = new Championnat(3, 0, 1, (joueur_humain) ? participants.get(0) : null, participants);
     }
