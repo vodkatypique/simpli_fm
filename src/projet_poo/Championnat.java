@@ -9,11 +9,11 @@ class Championnat extends Structure {
 
     private Club joueur;
 
-    private int ptsVictoire;
+    private final int ptsVictoire;
 
-    private int ptsNul;
+    private final int ptsNul;
 
-    private int ptsDef;
+    private final int ptsDef;
 
     private ArrayList<Club> classement;
 
