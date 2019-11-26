@@ -1,6 +1,7 @@
 package projet_poo;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 class Compo {
@@ -182,8 +183,8 @@ class Compo {
                 }
                 this.remplacants.remove(choix);
             }
-        } catch (Exception e) {
-            System.out.println("Erreur, crash");
+        } catch (InputMismatchException e) {
+            System.out.println("Erreur d'input dans les changement, crash");
             System.exit(1);
         }
 

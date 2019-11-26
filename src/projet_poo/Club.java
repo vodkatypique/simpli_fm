@@ -1,6 +1,7 @@
 package projet_poo;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -71,83 +72,88 @@ class Club extends Structure {
 
 
     public void programmerCompo() {
-        Scanner myObj = new Scanner(System.in);  // Create a Scanner object
-        String change = "y";
-        if (this.compo.getGk() != null) {
-            this.compo.afficheCompo();
-            System.out.println("changer de compo ? Y/N");
-            change = myObj.next();
-        }
-        if (change.equalsIgnoreCase("y")) {
-        this.compo.reset();
-        ArrayList<Joueur> selectionnable = new ArrayList<Joueur>(this.effectif);
-
-        while (this.compo.getGk() == null) {
-            System.out.println("choisissez votre gardien : ");
-            for (Joueur j : selectionnable) {
-                System.out.println("GK : " + j.getStatGk() + ", " + j.toStringEtatPhysique() + " index : " + selectionnable.indexOf(j));
+        try {
+            Scanner myObj = new Scanner(System.in);  // Create a Scanner object
+            String change = "y";
+            if (this.compo.getGk() != null) {
+                this.compo.afficheCompo();
+                System.out.println("changer de compo ? Y/N");
+                change = myObj.next();
             }
-            System.out.println("Index du joueur choisi pour jouer GK");
+            if (change.equalsIgnoreCase("y")) {
+                this.compo.reset();
+                ArrayList<Joueur> selectionnable = new ArrayList<Joueur>(this.effectif);
 
-            int choix = myObj.nextInt();  // Read user input
-            while (selectionnable.size() - 1 < choix) {
-                System.out.println("Index du joueur choisi pour jouer GK");
-                choix = myObj.nextInt();  // Read user input
-            }
+                while (this.compo.getGk() == null) {
+                    System.out.println("choisissez votre gardien : ");
+                    for (Joueur j : selectionnable) {
+                        System.out.println("GK : " + j.getStatGk() + ", " + j.toStringEtatPhysique() + " index : " + selectionnable.indexOf(j));
+                    }
+                    System.out.println("Index du joueur choisi pour jouer GK");
 
-            this.compo.ajouterGk(selectionnable.get(choix));
-            selectionnable.remove(choix);
-        }
+                    int choix = myObj.nextInt();  // Read user input
+                    while (selectionnable.size() - 1 < choix) {
+                        System.out.println("Index du joueur choisi pour jouer GK");
+                        choix = myObj.nextInt();  // Read user input
+                    }
 
-        while (this.compo.getNbTitulaire() < 10) {
-            this.compo.afficheCompo();
-            int nbDispo = 10 - this.compo.getNbTitulaire();
-            System.out.println("encore " + nbDispo + " joueur a choisir");
-            for (Joueur j : selectionnable) {
-                System.out.println("att: " + j.getStatAtt() + " | def: " + j.getStatDef() + "|" + j.toStringEtatPhysique() + " |index : " + selectionnable.indexOf(j));
-            }
+                    this.compo.ajouterGk(selectionnable.get(choix));
+                    selectionnable.remove(choix);
+                }
 
-            System.out.println("def ou att ?");
-            String choix = myObj.next();  // Read user input
-            while (!choix.equalsIgnoreCase("att") && !choix.equalsIgnoreCase("def")) {
-                System.out.println("def ou att ?");
-                choix = myObj.next();
-            }
+                while (this.compo.getNbTitulaire() < 10) {
+                    this.compo.afficheCompo();
+                    int nbDispo = 10 - this.compo.getNbTitulaire();
+                    System.out.println("encore " + nbDispo + " joueur a choisir");
+                    for (Joueur j : selectionnable) {
+                        System.out.println("att: " + j.getStatAtt() + " | def: " + j.getStatDef() + "|" + j.toStringEtatPhysique() + " |index : " + selectionnable.indexOf(j));
+                    }
 
-            System.out.println("combien de " + choix + " ?");
-            int occ = myObj.nextInt();
-            while (occ > nbDispo || occ < 1) {
-                System.out.println("combien de " + choix + " ? maximum de " + nbDispo);
-                occ = myObj.nextInt();
-            }
+                    System.out.println("def ou att ?");
+                    String choix = myObj.next();  // Read user input
+                    while (!choix.equalsIgnoreCase("att") && !choix.equalsIgnoreCase("def")) {
+                        System.out.println("def ou att ?");
+                        choix = myObj.next();
+                    }
+
+                    System.out.println("combien de " + choix + " ?");
+                    int occ = myObj.nextInt();
+                    while (occ > nbDispo || occ < 1) {
+                        System.out.println("combien de " + choix + " ? maximum de " + nbDispo);
+                        occ = myObj.nextInt();
+                    }
 
 
-            for (int i = 0; i < occ; i++) {
-                System.out.println("choisissez votre " + choix + ": ");
+                    for (int i = 0; i < occ; i++) {
+                        System.out.println("choisissez votre " + choix + ": ");
 
-                for (Joueur j : selectionnable) {
-                    if (choix.equalsIgnoreCase("att")) {
-                        System.out.println(j.getStatAtt() + ", " + j.toStringEtatPhysique() + " index : " + selectionnable.indexOf(j));
-                    } else {
-                        System.out.println(j.getStatDef() + ", " + j.toStringEtatPhysique() + " index : " + selectionnable.indexOf(j));
+                        for (Joueur j : selectionnable) {
+                            if (choix.equalsIgnoreCase("att")) {
+                                System.out.println(j.getStatAtt() + ", " + j.toStringEtatPhysique() + " index : " + selectionnable.indexOf(j));
+                            } else {
+                                System.out.println(j.getStatDef() + ", " + j.toStringEtatPhysique() + " index : " + selectionnable.indexOf(j));
+                            }
+                        }
+                        System.out.println("Index du joueur choisi pour jouer " + choix + " : ");
+
+                        int index = myObj.nextInt();  // Read user input
+                        while (selectionnable.size() - 1 < index) {
+                            System.out.println("Index du joueur choisi pour jouer " + choix + " : ");
+                            index = myObj.nextInt();  // Read user input
+                        }
+
+                        this.compo.ajouterJoueur(choix.toLowerCase(), selectionnable.get(index));
+                        selectionnable.remove(index);
+
+
                     }
                 }
-                System.out.println("Index du joueur choisi pour jouer " + choix + " : ");
-
-                int index = myObj.nextInt();  // Read user input
-                while (selectionnable.size() - 1 < index) {
-                    System.out.println("Index du joueur choisi pour jouer " + choix + " : ");
-                    index = myObj.nextInt();  // Read user input
-                }
-
-                this.compo.ajouterJoueur(choix.toLowerCase(), selectionnable.get(index));
-                selectionnable.remove(index);
-
-
             }
+            this.genererRemplacant();
+        } catch (InputMismatchException e) {
+            System.out.println("Erreur d'input dans la compo, crash");
+            System.exit(1);
         }
-        }
-        this.genererRemplacant();
     }
 
     public void genererEffectif(int taille, ArrayList<Joueur> bdd) {
